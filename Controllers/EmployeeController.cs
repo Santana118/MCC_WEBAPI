@@ -11,10 +11,10 @@ namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DivisionController : ControllerBase
+    public class EmployeeController : ControllerBase
     {
         MyContext myContext;
-        public DivisionController(MyContext myContext)
+        public EmployeeController(MyContext myContext)
         {
             this.myContext = myContext;
         }
@@ -22,15 +22,15 @@ namespace API.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            var data = myContext.Divisions.ToList();
-            return Ok(new { message = "sukses mengambil data", statusCode = 200, data = data});
+            var data = myContext.Employees.ToList();
+            return Ok(new { message = "sukses mengambil data karyawan", statusCode = 200, data = data });
         }
 
         //READ BY ID
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            var data = myContext.Divisions.Find(id);
+            var data = myContext.Employees.Find(id);
             if (data == null)
             {
                 return Ok(new { message = "data doesnt exist", statusCode = 200, data = data });
@@ -39,9 +39,9 @@ namespace API.Controllers
         }
         //CREATE
         [HttpPost]
-        public IActionResult Post(Division division)
+        public IActionResult Post(Employee employee)
         {
-            myContext.Divisions.Add(division);
+            myContext.Employees.Add(employee);
             var data = myContext.SaveChanges();
             if (data == 0)
             {
@@ -52,27 +52,27 @@ namespace API.Controllers
 
         //UPDATE
         [HttpPut]
-        public IActionResult Put(Division division)
+        public IActionResult Put(Employee employee)
         {
 
-            var check = myContext.Divisions.Find(division.Id);
+            var check = myContext.Employees.Find(employee.Id);
             if (check == null)
             {
                 return BadRequest(new { message = "gagal merubah data", statusCode = 400 });
             }
-            myContext.Divisions.Update(division);
+            myContext.Employees.Update(employee);
             myContext.SaveChanges();
             return Ok(new { message = "sukses menambahkan data", statusCode = 201 });
         }
 
         //DELETE
         [HttpDelete]
-        public IActionResult Delete(Division division)
+        public IActionResult Delete(Employee employee)
         {
             //BAD PRACTICE MAYBE ??
             try
             {
-                myContext.Divisions.Remove(division);
+                myContext.Employees.Remove(employee);
                 var check = myContext.SaveChanges();
                 return Ok(new { message = "sukses menghapus data", statusCode = 200 });
             }
@@ -80,15 +80,15 @@ namespace API.Controllers
             {
                 return BadRequest(new { message = "gagal menghapus data", statusCode = 400 });
             }
-            
+
         }
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
             try
             {
-                var data = myContext.Divisions.Find(id);
-                myContext.Divisions.Remove(data);
+                var data = myContext.Employees.Find(id);
+                myContext.Employees.Remove(data);
                 var check = myContext.SaveChanges();
                 return Ok(new { message = "sukses menghapus data", statusCode = 200 });
             }

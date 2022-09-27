@@ -11,37 +11,39 @@ namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DivisionController : ControllerBase
+    public class RoleController : ControllerBase
     {
         MyContext myContext;
-        public DivisionController(MyContext myContext)
+        public RoleController(MyContext myContext)
         {
             this.myContext = myContext;
         }
-        //READALL
+
+        //GET
         [HttpGet]
         public IActionResult Get()
         {
-            var data = myContext.Divisions.ToList();
-            return Ok(new { message = "sukses mengambil data", statusCode = 200, data = data});
+            var data = myContext.Roles.ToList();
+            return Ok(new { message = "sukses mengambil data", statusCode = 200, data = data });
         }
 
-        //READ BY ID
+        //GETBYID
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            var data = myContext.Divisions.Find(id);
+            var data = myContext.Roles.Find(id);
             if (data == null)
             {
                 return Ok(new { message = "data doesnt exist", statusCode = 200, data = data });
             }
             return Ok(new { message = "sukses mengambil data", statusCode = 200, data = data });
         }
+
         //CREATE
         [HttpPost]
-        public IActionResult Post(Division division)
+        public IActionResult Post(Role role)
         {
-            myContext.Divisions.Add(division);
+            myContext.Roles.Add(role);
             var data = myContext.SaveChanges();
             if (data == 0)
             {
@@ -52,43 +54,26 @@ namespace API.Controllers
 
         //UPDATE
         [HttpPut]
-        public IActionResult Put(Division division)
+        public IActionResult Put(Role role)
         {
-
-            var check = myContext.Divisions.Find(division.Id);
+            var check = myContext.Roles.Find(role.Id);
             if (check == null)
             {
                 return BadRequest(new { message = "gagal merubah data", statusCode = 400 });
             }
-            myContext.Divisions.Update(division);
+            myContext.Roles.Update(role);
             myContext.SaveChanges();
             return Ok(new { message = "sukses menambahkan data", statusCode = 201 });
         }
 
         //DELETE
         [HttpDelete]
-        public IActionResult Delete(Division division)
+        public IActionResult Delete(Role role)
         {
-            //BAD PRACTICE MAYBE ??
+            //OBV THIS IS BAD PRACTICE 
             try
             {
-                myContext.Divisions.Remove(division);
-                var check = myContext.SaveChanges();
-                return Ok(new { message = "sukses menghapus data", statusCode = 200 });
-            }
-            catch
-            {
-                return BadRequest(new { message = "gagal menghapus data", statusCode = 400 });
-            }
-            
-        }
-        [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
-        {
-            try
-            {
-                var data = myContext.Divisions.Find(id);
-                myContext.Divisions.Remove(data);
+                myContext.Roles.Remove(role);
                 var check = myContext.SaveChanges();
                 return Ok(new { message = "sukses menghapus data", statusCode = 200 });
             }
@@ -98,5 +83,6 @@ namespace API.Controllers
             }
 
         }
+
     }
 }
