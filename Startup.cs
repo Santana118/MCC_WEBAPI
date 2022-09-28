@@ -1,4 +1,5 @@
 using API.Context;
+using API.Repositories.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -45,6 +46,9 @@ namespace API
                     }
                 });
             });
+            #region Dependency Injection
+            services.AddScoped<DivisionRepository>();
+            #endregion Dependency Injection
 
         }
 
