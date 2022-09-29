@@ -7,18 +7,18 @@ using System.Threading.Tasks;
 
 namespace API.Models
 {
-    public class Employee
+    public class UserRole
     {
-        
         [Key]
         public int Id { get; set; }
-        public string FullName { get; set; }
-        public string Email { get; set; }
-
-        //[ForeignKey("Division")]
-        //public int DivisionId { get; set; }
-        //[ForeignKey("Role")]
-        //public int RoleId { get; set; }
+        
+        [ForeignKey("User")]
+        public int UserId { get; set; }
+        
+        [ForeignKey("Role")]
+        public int RoleId { get; set; }
+        public Role Role { get; set; }
+        public User User { get; set; }
 
     }
 }
