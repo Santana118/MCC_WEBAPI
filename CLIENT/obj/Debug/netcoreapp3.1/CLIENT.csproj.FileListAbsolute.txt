@@ -78,3 +78,4 @@ C:\Users\user\Desktop\fga_training\Santana118\API\CLIENT\obj\Debug\netcoreapp3.1
 C:\Users\user\Desktop\fga_training\Santana118\API\CLIENT\obj\Debug\netcoreapp3.1\CLIENT.dll
 C:\Users\user\Desktop\fga_training\Santana118\API\CLIENT\obj\Debug\netcoreapp3.1\CLIENT.pdb
 C:\Users\user\Desktop\fga_training\Santana118\API\CLIENT\obj\Debug\netcoreapp3.1\CLIENT.genruntimeconfig.cache
+C:\Users\user\Desktop\fga_training\Santana118\API\CLIENT\obj\Debug\netcoreapp3.1\Razor\Views\ErrorPage\Index.cshtml.g.cs

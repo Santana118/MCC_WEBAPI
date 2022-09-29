@@ -1,4 +1,5 @@
 ﻿using CLIENT.ViewModel;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
@@ -27,12 +28,14 @@ namespace CLIENT.Controllers
             return View();
         }
 
-        public IActionResult Login(Login login)
+        public async Task<IActionResult> Login(Login login)
         {
             StringContent content = new StringContent(JsonConvert.SerializeObject(login), Encoding.UTF8, "application/json");
             var result = HttpClient.PostAsync(address, content).Result;
             if (result.IsSuccessStatusCode)
             {
+                var data = JsonConvert.DeserializeObject<ResponseClient>(await result.Content.ReadAsStringAsync());
+                HttpContext.Session.SetString("Role", data.data.Role);
                 return (RedirectToAction("Index", "Home"));
             }
 
