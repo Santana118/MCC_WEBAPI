@@ -9,6 +9,11 @@ namespace CLIENT.Controllers
 {
     public class AdminPanelController : Controller
     {
+        public AdminPanelController()
+        {
+
+        }
+
         public IActionResult Index()
         {
             var role = HttpContext.Session.GetString("Role");

@@ -8,7 +8,9 @@ namespace CLIENT.Controllers
 {
     public class ErrorPageController : Controller
     {
-        public IActionResult Index()
+#pragma warning disable CS0114 // Member hides inherited member; missing override keyword
+        public IActionResult Unauthorized()
+#pragma warning restore CS0114 // Member hides inherited member; missing override keyword
         {
             return View();
         }
