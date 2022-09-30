@@ -18,14 +18,7 @@ namespace API.Repositories.Data
         }
         public ResponseLogin Login(Login login)
         {
-            //var data = myContext.UserRoles
-            //    .Include(x => x.Role)
-            //    .Include(x => x.User)
-            //    .Include(x => x.User.Employee)
-            //    .FirstOrDefault(x =>
-            //        x.User.Employee.Email.Equals(login.Email) &&
-            //        x.User.Password.Equals(login.Password));
-            
+
             var data = myContext.UserRoles
                 .Include(x => x.Role)
                 .Include(x => x.User)

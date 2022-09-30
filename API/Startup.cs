@@ -2,6 +2,7 @@ using API.Context;
 using API.Repositories.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,7 +24,13 @@ namespace API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            
+            services.AddControllers()
+                .AddSessionStateTempDataProvider(); ;
+            services.AddRazorPages()
+                .AddSessionStateTempDataProvider();
+            services.AddDistributedMemoryCache();
+            services.AddSession();
             services.AddDbContext<MyContext>(option => option.UseSqlServer(Configuration.GetConnectionString("MyConnection")));
             services.AddSwaggerGen(c =>
             {
@@ -49,6 +56,8 @@ namespace API
             #region Dependency Injection
             services.AddScoped<DivisionRepository>();
             services.AddScoped<AccountRepository>();
+            services.AddScoped<StockRepository>();
+            services.AddScoped<CustomerRepository>();
             #endregion Dependency Injection
 
         }
@@ -56,6 +65,7 @@ namespace API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseSession();
             if (env.IsDevelopment())
             {
                 app.UseSwagger();
@@ -72,7 +82,11 @@ namespace API
 
             app.UseRouting();
 
+            app.UseAuthentication();
+
             app.UseAuthorization();
+
+            
 
             app.UseEndpoints(endpoints =>
             {

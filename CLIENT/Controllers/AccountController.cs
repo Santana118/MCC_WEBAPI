@@ -3,8 +3,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,7 +25,8 @@ namespace CLIENT.Controllers
         {
             return View();
         }
-
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(Login login)
         {
             StringContent content = new StringContent(JsonConvert.SerializeObject(login), Encoding.UTF8, "application/json");
@@ -39,7 +38,7 @@ namespace CLIENT.Controllers
                 return (RedirectToAction("Index", "Home"));
             }
 
-            return View("Index","Account");
+            return View("Index", "Account");
         }
     }
 }
